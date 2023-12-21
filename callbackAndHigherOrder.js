@@ -6,28 +6,19 @@
 */
 
 // CODE HERE
-function multiply(num1, num2, callbackFunction){
+function multiply(num1, num2, callback){
   let product = num1 * num2
-  callbackFunction(product)
+  callback(product)
 }
-
-// function callbackFunction(result) {
-//   console.log(result);
-// }
-
-// multiply(6, 3, callbackFunction)
-
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-multiply(4, 3, answer => {
+multiply(5, 3, answer => {
   console.log('The answer is ' + answer) //should console.log 12
 })
-
-
 
 
 
@@ -48,10 +39,10 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback function, passing in the first element in the array as it's argument.
 */
 
-// CODE HERE 
-function first(names, callback1){
-  callback1(names[0])
-}
+// CODE HERE
+function first(array, callback){
+  callback(array[0])
+} 
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
@@ -72,10 +63,10 @@ first(names, firstName => {
 */
 
 // CODE HERE
-
-function last(names, callback2){
-  callback2(names[names.length-1])
+function last(array, callback){
+  callback(array[array.length - 1])
 }
+
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
@@ -98,14 +89,13 @@ last(names, lastName => {
 */
 
 // CODE HERE 
-function contains(arr, name, callback3){
-  if(arr.includes(name) === true){
-    callback3(true) 
+function contains(array, name, callback){
+  if(array.includes(name)){
+    callback(true)
   } else {
-    callback3(false)
+    callback(false)
   }
 }
-
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
@@ -130,10 +120,11 @@ contains(names, 'Colt', result => {
 */
 
 // CODE HERE
-function uniq(array, callback4){
-  let uniqueNames = [...new Set(array)];
-  callback4(uniqueNames)
+function uniq(array, callback){
+  let uniqueValues = [...new Set(array)]
+  callback(uniqueValues)
 }
+
 
 /*
   Invoke the uniq function, passing in the names array from above and a callback function.
@@ -143,8 +134,8 @@ function uniq(array, callback4){
 */
 
 // CODE HERE
-uniq(names, uniqueNames => {
- console.log(`The new names array with all the duplicate items removed is ${uniqueNames}.`)
+uniq(names, uniqArr => {
+  console.log(`The new names array with all the duplicate items removed is ${uniqArr}.`)
 })
 
 
@@ -157,10 +148,12 @@ uniq(names, uniqueNames => {
 */
 
 // CODE HERE 
-function each(array, callback5){
-  let nameAndIndex = array.forEach((el, index) => console.log(`The item at index ${index} is ${el}`))
-  callback5(nameAndIndex)
+function each(array, callback){
+  for(let i = 0; i < array.length; i++){
+    callback(array[i], i)
+  }
 }
+
 
 /*
   Invoke the each function, passing in the names array and a callback function.
@@ -170,9 +163,10 @@ function each(array, callback5){
 */
 
 // CODE HERE
-each(names, nameAndIndex => {
+each(names, (item, index) => {
+  console.log(`The item at index ${item} is ${index}.`)
+})
 
- })
 
 ////////// PROBLEM 7 //////////
 
@@ -205,18 +199,23 @@ var users = [
 // Do not edit the code above.
 
 // CODE HERE 
-
+function getUserById(array, id, callback){
+  for(let userObject of array){
+    if(userObject.id === id){
+      callback(userObject)
+    }
+  }
+}
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// getUserById(users, '16t', user => {
-//   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
-// })
+getUserById(users, '16t', user => {
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
+})
 
 ////////// CHALLENGE //////////
-
 
 /*
   You'll be writing a higher order function that returns
@@ -233,17 +232,13 @@ var users = [
 */
 
 // CODE HERE
-function addingFactory(){
-  const addTen = (number) => {
-    return number + 10;
+const addingFactory = x => {
+  return function(y) {
+      return x + y
   }
-
-  return addTen
 }
-const resultFunc = addingFactory()
-const result = resultFunc(5)
-console.log(`Final: ${result}`)
 
+console.log(addingFactory(5)(6))
 
 
 /*
@@ -259,6 +254,10 @@ console.log(`Final: ${result}`)
 */
 
 // CODE HERE
+let addTen = addingFactory(10)
+
+console.log(addTen(6))
+
 
 /*
   Now the inner function is stored in the addTen variable! 
@@ -271,6 +270,8 @@ console.log(`Final: ${result}`)
 */
 
 // CODE HERE
+console.log(addTen(5))
+
 
 /*
   Let's make another function from the addingFactory. 
@@ -284,3 +285,5 @@ console.log(`Final: ${result}`)
 */
 
 // CODE HERE
+const addNUMBER = addingFactory(7)
+console.log(addNUMBER(2))
