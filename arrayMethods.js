@@ -18,13 +18,11 @@ const mixedNumbers = [6,3,1,7,5,2,6,8,9,4,2,7,9,3,1,8,4,3];
 */
 
 // CODE HERE
-const isEven = (num) => num % 2 === 0;
-const evenNumbers = mixedNumbers.filter(isEven)
+const evenNumbers = mixedNumbers.filter((element) => element % 2 === 0)
 console.log(evenNumbers)
 
 
 // = mixedNumbers.filter(/* Provide Your Callback Here */)
-
 
 
 
@@ -46,14 +44,12 @@ const prices = [15.00, 23.00, 78.00, 34.00, 12.00, 86.00, 12.00, 79.00, 32.00];
 */
 
 // CODE HERE
-const afterTax = (price) => price + price * 1.07;
-const pricesAfterTax = prices.map(afterTax)
-console.log(pricesAfterTax)
+const postTaxPrices = prices.map(function(price){
+  return price * 1.07
+})
 
+console.log(postTaxPrices)
 
-
-// const postTaxPrices
- // = prices.map(/* Provide Your Callback Here );
 
 
 
@@ -71,13 +67,10 @@ const populations = [8175133, 3792621, 2695598, 2100263];
 */
 
 // CODE HERE
-// const totalPopulation 
-//  = populations.reduce(/* Provide Your Callback Here */)
-const initialValue = 0;
-const sumOfPopulation = populations.reduce((runningTotal, curValue) => 
-runningTotal + curValue, initialValue)
-console.log(sumOfPopulation)
+const totalPopulation = populations.reduce((previousValue, currentValue) => previousValue + currentValue)
+console.log(totalPopulation)
 
+//  = populations.reduce(/* Provide Your Callback Here */)
 
 
 
@@ -102,11 +95,8 @@ const monstersInYourPocket = [{"monster":"Bulbabunny","CP":156},{"monster":"Bulb
 */
 
 // CODE HERE
-// const myStrongest 
-// = monstersInYourPocket.filter(/* Provide Your Callback Here */)
-const myStrongest = monstersInYourPocket.filter((strong) => strong.CP > 200)
+const myStrongest = monstersInYourPocket.filter((monster) => monster.CP > 200)
 console.log(myStrongest)
-
 
 
 
@@ -124,15 +114,8 @@ const orders = [{"price":15,"tax":0.09},{"price":42,"tax":0.07},{"price":56,"tax
 */
 
 // CODE HERE
-// function afterTaxObj(){
-//   let pricesWithTax = []
-//   for(let i = 0; i < orders.length; i++){
-//     pricesWithTax.push(orders[i].price + orders[i].price * orders[i].tax)
-//   } return pricesWithTax
-// }
-
-const afterTaxOrders = orders.map((val) => val.price + val.price * val.tax)
-console.log(afterTaxOrders)
+const pricesAfterSalesTax = orders.map((priceAT) => priceAT.price + priceAT.price * priceAT.tax)
+console.log(pricesAfterSalesTax)
 
 
 
@@ -153,9 +136,11 @@ const purchases = [{"owner":"Barry","price":103},{"owner":"Bob","price":75},
 */
 
 // CODE HERE
-const bobsTotal = purchases
-  .filter((name) => name.owner === "Bob")
-  .reduce((total, purchase) => {
-    return total + purchase.price
-},0)
+const bobsTotal = purchases.reduce((total, purchase) => {
+  if(purchase.owner === "Bob"){
+    return total = total + purchase.price
+  }
+  return total
+}, 0)
+
 console.log(bobsTotal)
